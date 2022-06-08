@@ -10,6 +10,17 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+router.get('/login/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+
+// Retrieve user data using the access token received 
+router.get(
+  "/google/callback",
+  passport.authenticate('google'),
+  (req, res) => {
+  res.send("You are authenticated")
+  }
+ );
+
 router.post('/login', upload.none(), (req, res, next) => {
   console.log(req.body)
   passport.authenticate("local", (err, user) => {

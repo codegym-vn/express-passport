@@ -18,7 +18,6 @@ mongoose_1.default.connect(DB_URL)
     .then(() => console.log('DB Connected!'))
     .catch(error => console.log('DB connection error:', error.message));
 app.use(body_parser_1.default.json());
-app.use("/auth", authRouter_1.default);
 app.use((0, express_session_1.default)({
     secret: 'SECRET',
     resave: false,
@@ -28,6 +27,7 @@ app.use((0, express_session_1.default)({
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
+app.use("/auth", authRouter_1.default);
 app.use(express_1.default.urlencoded({ extended: false }));
 app.listen(PORT, () => {
     console.log("App running on port: " + PORT);
